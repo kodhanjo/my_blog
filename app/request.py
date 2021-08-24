@@ -1,3 +1,4 @@
+from app import app
 import urllib.request,json
 # base_url = None
 
