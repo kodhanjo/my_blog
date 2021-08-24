@@ -2,7 +2,7 @@ class Config:
     '''
     General configuration parent class
     '''
-    pass
+    BLOG_API ='GET http://quotes.stormconsultancy.co.uk/random.json'
 
 
 
