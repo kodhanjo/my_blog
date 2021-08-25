@@ -4,7 +4,7 @@ from . import main
 from flask_login import login_required, current_user
 from .. import db,photos
 from flask_login import login_user,logout_user,login_required
-# from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash
 from .forms import UpdateProfile,PostForm,CommentsForm
 from ..models import User,Blog,Comment,Post
 from ..requests import get_blogs
@@ -19,7 +19,7 @@ def index():
 @main.route('/user/<uname>', methods=['GET', 'POST'])
 def profile(uname):
     user = User.query.filter_by(username = uname).first()
-    # form = PostForm()
+    form = PostForm()
 
     if user is None:
         abort(404)
@@ -44,8 +44,8 @@ def update_profile(uname):
     if form.validate_on_submit():
         user.bio = form.bio.data
 
-        # db.session.add(user)
-        # db.session.commit()
+        db.session.add(user)
+        db.session.commit()
 
         return redirect(url_for('.profile',uname=user.username))
 
@@ -59,7 +59,7 @@ def update_pic(uname):
         filename = photos.save(request.files['photo'])
         path = f'images/{filename}'
         user.profile_pic_path = path
-        # db.session.commit()
+        db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
 
 
@@ -75,8 +75,8 @@ def comment(pname):
     if form.validate_on_submit():
         comment = Comment(comment = form.comment.data, post_id = posts.id, user_id= current_user.id)
         
-        # db.session.add(comment)
-        # db.session.commit()
+        db.session.add(comment)
+        db.session.commit()
 
         flash('your comment has been posted successfuly', 'success')
         return redirect(url_for('main.comment', pname=pname))
@@ -90,8 +90,8 @@ def comment(pname):
 def delete(pname):
     posts = Post.query.filter_by(id=pname).first()
     
-    # db.session.delete(posts)
-    # db.session.commit()
+    db.session.delete(posts)
+    db.session.commit()
 
     flash('your has been deleted!', 'success')
     
