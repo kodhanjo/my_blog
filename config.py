@@ -1,9 +1,16 @@
+import os
+# from flask_mail import Mail
+
 class Config:
-    '''
-    General configuration parent class
-    '''
-    # BLOG_API ='GET http://quotes.stormconsultancy.co.uk/random.json'
-    pass
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+
+    BLOG_API ='GET http://quotes.stormconsultancy.co.uk/random.json'
+
 
 
 class ProdConfig(Config):
@@ -23,8 +30,7 @@ class DevConfig(Config):
     Args:
         Config: The parent configuration class with General configuration settings
     '''
-
-    DEBUG = True
+    # DEBUG = True
 
     config_options = {
     'development': DevConfig,

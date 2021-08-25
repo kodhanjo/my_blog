@@ -1,38 +1,25 @@
-from app import create_app
-from flask_script import Manager, Server
-# from app.models import 
-
-
-app = create_app('development')
-
-manager= Manager(app)
-manager.add_command('server',Server)
-
-if __name__ == '__main__':
-    manager.run() 
-
-# from app import create_app #db
-# from flask_script import Manager,Server
+from app import create_app, db
+from flask_script import Manager,Server
 # from  flask_migrate import Migrate, MigrateCommand
-# from app.models import User
+from app.models import User
 
 
 # Creating app instance
 # app = create_app('test')
 # app=create_app('production')
-# app=create_app('developement')
+app=create_app('developement')
 
-# manager=Manager(app)
-# manager.add_command('server',Server)
+manager=Manager(app)
+manager.add_command('server',Server)
 
 # migrate = Migrate(app,db)
 # manager.add_command('db',MigrateCommand)
 
 
 #use the manager shell decorator to access the shell on the command line
-# @manager.shell
-# def make_shell_context():
-#     return dict(app = app,db = db,User = User )
+@manager.shell
+def make_shell_context():
+    return dict(app = app,db = db,User = User )
     
 # @manager.command
 # def test():
@@ -40,5 +27,5 @@ if __name__ == '__main__':
 #     tests=unittest.TestLoader().discover('tests')
     # unittest.TextTestRunner(verbosity=2).run(tests)
     
-# if __name__=='__main__':
-    # manager.run()
+if __name__=='__main__':
+    manager.run()
