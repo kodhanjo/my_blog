@@ -2,8 +2,8 @@ class Config:
     '''
     General configuration parent class
     '''
-    BLOG_API ='GET http://quotes.stormconsultancy.co.uk/random.json'
-
+    # BLOG_API ='GET http://quotes.stormconsultancy.co.uk/random.json'
+    pass
 
 
 class ProdConfig(Config):
@@ -25,3 +25,8 @@ class DevConfig(Config):
     '''
 
     DEBUG = True
+
+    config_options = {
+    'development': DevConfig,
+    'production': ProdConfig
+}
