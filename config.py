@@ -2,12 +2,12 @@ import os
 # from flask_mail import Mail
 
 class Config:
-    # SECRET_KEY = os.environ.get('SECRET_KEY')
-    # MAIL_SERVER = 'smtp.gmail.com'
-    # MAIL_PORT = 587
-    # MAIL_USE_TLS = True
-    # MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
-    # MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+    MAIL_SERVER = 'smtp.gmail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
 
     # MOVIE_API_BASE_URL ='https://api.themoviedb.org/3/movie/{}?api_key={}'
     # MOVIE_API_KEY = os.environ.get('MOVIE_API_KEY')
