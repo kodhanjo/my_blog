@@ -6,7 +6,7 @@ from .. import db,photos
 from flask_login import login_user,logout_user,login_required
 from werkzeug.security import generate_password_hash
 from .forms import UpdateProfile,PostForm,CommentsForm
-from ..models import User,Blog,Comment,Post
+from ..models import User,Blog,Comment, Post
 from ..requests import get_blogs
 
 

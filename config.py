@@ -1,5 +1,5 @@
 import os
-# from flask_mail import Mail
+from flask_mail import Mail
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY')
@@ -24,6 +24,9 @@ class ProdConfig(Config):
     '''
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
 
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://moringa:kodhanjo@localhost/blog_test'
+
 
 class DevConfig(Config):
     '''
@@ -37,5 +40,6 @@ class DevConfig(Config):
 
 config_options = {
     'development': DevConfig,
-    'production': ProdConfig
+    'production': ProdConfig,
+    'test':TestConfig
 }
