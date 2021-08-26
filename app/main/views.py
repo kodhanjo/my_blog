@@ -12,9 +12,11 @@ from ..requests import get_blogs
 
 @main.route('/')
 def index():
-    blogs = get_blogs()
+    quotes = get_blogs()
     page = request.args.get('page', 1, type=int)
-    return render_template('index.html', posts=posts)
+    posts = Post.query.filter_by().order_by(Post.date.desc()).paginate(page=page, per_page=4)
+    return render_template('index.html', blogs=quotes, posts=posts)
+    
 
 @main.route('/user/<uname>', methods=['GET', 'POST'])
 def profile(uname):
@@ -26,7 +28,7 @@ def profile(uname):
     
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username=uname).first()
-    posts = Post.query.filter_by(owner_id=user.id). order_by(Post.date.desc()).paginate(page=page, per_page=4)
+    posts = Post.query.filter_by(owner_id=user.id).order_by(Post.date.desc()).paginate(page=page, per_page=4)
      
 
     return render_template("profile/profile.html", user = user, posts=posts )
