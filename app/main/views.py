@@ -15,8 +15,23 @@ def index():
     quotes = get_blogs()
     page = request.args.get('page', 1, type=int)
     posts = Post.query.filter_by().order_by(Post.date.desc()).paginate(page=page, per_page=4)
-    return render_template('index.html', blogs=quotes, posts=posts)
+    return render_template('index.html', blogs=quotes, posts=posts, bog=blog)
     
+@main.route('/blog', methods= ['GET', 'POST'])
+def blog():
+    form = PostForm()
+    if form.validate_on_submit():
+        topic = form.topic.data
+        category = form.category.data
+        description = form.description.data
+        user = current_user._get_current_object()
+        post = Post (topic=topic,category=category, description=description, user=user)
+        db.session.add(post)
+        db.session.commit()
+        return redirect (url_for('main.index'))
+
+    return render_template('profile/blog.html', form=form)
+
 
 @main.route('/user/<uname>', methods=['GET', 'POST'])
 def profile(uname):
